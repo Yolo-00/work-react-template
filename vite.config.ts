@@ -6,6 +6,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import viteCompression from "vite-plugin-compression";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import postcssPresetEnv from "postcss-preset-env";
+import tailwindcss from "tailwindcss";
 import { viteServeInfoPlugin } from "./vite/plugin/vite-serve-info";
 import { cdn } from "./vite/plugin/cdn";
 import { name, version } from "./vite/plugin/app-info";
@@ -61,7 +62,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       // * postcss后处理器
       postcss: {
         // * postcssPresetEnv css语法降级
-        plugins: [postcssPresetEnv()]
+        plugins: [postcssPresetEnv(), tailwindcss]
       }
     },
     esbuild: {

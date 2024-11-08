@@ -9,7 +9,7 @@ declare module "nprogress";
 declare module "qs";
 
 // * Vite
-declare type Recordable<T> = Record<string, T>;
+declare type Recordable<T = any> = Record<string, T>;
 
 declare interface ImportMetaEnv {
 	readonly VITE_API_URL: string;
@@ -19,7 +19,6 @@ declare interface ImportMetaEnv {
 	readonly VITE_REPORT: boolean;
 	readonly VITE_IMG_URL: string;
 	readonly VITE_CDN: boolean;
-	readonly VITE_HASH: boolean;
 }
 
 declare module "postcss-preset-env";

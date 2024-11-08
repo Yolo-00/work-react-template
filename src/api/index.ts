@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { showFullScreenLoading, tryHideFullScreenLoading } from "@/configs/serviceLoading";
 import { AxiosCanceler } from "./helper/axiosCancel";
 import { ResultData } from "@/api/interface";
 import { ResultEnum } from "@/enums/httpEnum";
@@ -34,7 +33,6 @@ class RequestHttp {
 				// * 将当前请求添加到 pending 中
 				axiosCanceler.addPending(config);
 				// * 如果当前请求不需要显示 loading,在 api 服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
-				config.headers!.noLoading || showFullScreenLoading();
 				const token: string = "";
 				return { ...config, headers: { ...config.headers, token: token } };
 			},
@@ -52,7 +50,6 @@ class RequestHttp {
 				const { data, config } = response;
 				// * 在请求结束后，移除本次请求，并关闭请求 loading
 				axiosCanceler.removePending(config);
-				tryHideFullScreenLoading();
 				// * 登陆失效
 				if (data.code == ResultEnum.OVERDUE) {
 					message.error(data.message);
@@ -69,7 +66,6 @@ class RequestHttp {
 			},
 			async (error: AxiosError) => {
 				const { response } = error;
-				tryHideFullScreenLoading();
 				// 请求超时单独判断，因为请求超时没有 response
 				if (error.message.indexOf("timeout") !== -1) message.error("请求超时！请您稍后重试");
 				// 根据响应的错误状态码，做不同的处理
