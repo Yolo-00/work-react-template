@@ -14,7 +14,8 @@
 		"build:dev": "tsc --noEmit &&rimraf dist && vite build --mode development",
 		"build:test": "tsc --noEmit &&rimraf dist && vite build --mode test",
 		"build:prod": "tsc --noEmit &&rimraf dist && vite build --mode production && generate-version-file",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"prepare": "husky"
 	},
 	"repository": {
 		"type": "git",
@@ -44,6 +45,8 @@
 		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^19.5.0",
+		"@commitlint/config-conventional": "^19.5.0",
 		"@eslint/js": "^9.13.0",
 		"@types/node": "^22.9.0",
 		"@types/nprogress": "^0.2.3",
@@ -55,6 +58,8 @@
 		"eslint-plugin-react-refresh": "^0.4.14",
 		"globals": "^15.11.0",
 		"gradient-string": "^3.0.0",
+		"husky": "^9.1.6",
+		"lint-staged": "^15.2.10",
 		"postcss": "^8.4.47",
 		"postcss-preset-env": "^10.0.9",
 		"prettier": "^3.3.3",
@@ -71,5 +76,11 @@
 	},
 	"engines": {
 		"node": ">=18.0.0"
+	},
+	"lint-staged": {
+		"*.{js,ts,jsx,tsx}": [
+			"eslint --cache --fix",
+			"git add"
+		]
 	}
 }
