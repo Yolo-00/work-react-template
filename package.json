@@ -11,9 +11,9 @@
 	},
 	"scripts": {
 		"dev": "vite --mode development",
-		"build:dev": "rimraf dist && vite build --mode development",
-		"build:test": "rimraf dist && vite build --mode test",
-		"build:prod": "rimraf dist && vite build --mode production && generate-version-file",
+		"build:dev": "tsc --noEmit &&rimraf dist && vite build --mode development",
+		"build:test": "tsc --noEmit &&rimraf dist && vite build --mode test",
+		"build:prod": "tsc --noEmit &&rimraf dist && vite build --mode production && generate-version-file",
 		"preview": "vite preview"
 	},
 	"repository": {
@@ -57,8 +57,10 @@
 		"gradient-string": "^3.0.0",
 		"postcss": "^8.4.47",
 		"postcss-preset-env": "^10.0.9",
+		"prettier": "^3.3.3",
 		"rimraf": "^6.0.1",
 		"rollup-plugin-visualizer": "^5.12.0",
+		"sass": "^1.80.6",
 		"tailwindcss": "^3.4.14",
 		"typescript": "~5.6.2",
 		"typescript-eslint": "^8.11.0",
