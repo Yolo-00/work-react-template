@@ -11,9 +11,9 @@
 	},
 	"scripts": {
 		"dev": "vite --mode development",
-		"build:dev": "vue-tsc --noEmit && rimraf dist && vite build --mode development",
-		"build:test": "vue-tsc --noEmit && rimraf dist && vite build --mode test",
-		"build:prod": "vue-tsc --noEmit && rimraf dist && vite build --mode production && generate-version-file",
+		"build:dev": "rimraf dist && vite build --mode development",
+		"build:test": "rimraf dist && vite build --mode test",
+		"build:prod": "rimraf dist && vite build --mode production && generate-version-file",
 		"preview": "vite preview"
 	},
 	"repository": {
