@@ -88,7 +88,6 @@ yarn build:prod
 - `workflow` 工作流改进
 - `ci` 持续集成
 - `types` 类型定义文件更改
-- `wip` 开发中
 
 ## `Star`
 
