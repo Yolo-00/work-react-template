@@ -1,0 +1,63 @@
+import { createBrowserRouter, redirect } from "react-router-dom";
+import React from "react";
+import Layout from "@/layouts";
+import NotFound from "@/pages/notFound";
+
+// 使用 React.lazy 动态导入页面组件
+const Login = React.lazy(() => import("@/pages/login/index"));
+const Home = React.lazy(() => import("@/pages/home/index"));
+const UserList = React.lazy(() => import("@/pages/userList"));
+
+let token = true;
+
+const routers = [
+	{
+		path: "/login",
+		element: <Login />,
+		loader: () => {
+			if (token) {
+				return redirect("/");
+			}
+			return null;
+		},
+	},
+	{
+		path: "/",
+		element: <Layout />,
+		children: [
+			{
+				path: "",
+				element: <Home />,
+				loader: beforeRouter,
+			},
+			{
+				path: "userList",
+				element: <UserList />,
+				loader: beforeRouter,
+			},
+		],
+	},
+	{
+		path: "*", // 处理未匹配的路由
+		element: <NotFound />,
+	},
+];
+
+const router = createBrowserRouter(routers, {
+	future: {
+		v7_fetcherPersist: true,
+		v7_normalizeFormMethod: true,
+		v7_partialHydration: true,
+		v7_relativeSplatPath: true,
+		v7_skipActionErrorRevalidation: true,
+	}
+});
+
+function beforeRouter() {
+	if (!token) {
+		return redirect("/login");
+	}
+	return null;
+}
+
+export default router;

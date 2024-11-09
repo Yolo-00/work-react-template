@@ -29,9 +29,6 @@ module.exports = {
   htmlWhitespaceSensitivity: "css",
   // 换行符使用 lf 结尾是 可选值 "<auto|lf|crlf|cr>"
   endOfLine: "auto",
-  // 这两个选项可用于格式化以给定字符偏移量（分别包括和不包括）开始和结束的代码
-  rangeStart: 0,
-  rangeEnd: "Infinity",
   
   // React 常用配置
   // 确保 JSX 元素的属性都换行，保证格式化清晰

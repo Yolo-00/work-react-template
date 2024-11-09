@@ -63,6 +63,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       postcss: {
         // * postcssPresetEnv css语法降级
         plugins: [postcssPresetEnv(), tailwindcss]
+      },
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          importers: [],
+        },
       }
     },
     esbuild: {
