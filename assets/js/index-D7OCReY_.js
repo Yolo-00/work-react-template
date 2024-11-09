@@ -1,0 +1,1 @@
+import{j as e}from"./vendor-NUE-ury9.js";function s(){return e.jsxs(e.Fragment,{children:[e.jsx("h1",{children:"Home"}),e.jsx("div",{style:{height:"100vh"}}),e.jsx("p",{children:"这是首页"})]})}export{s as default};
