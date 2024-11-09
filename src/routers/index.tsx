@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createHashRouter, redirect } from "react-router-dom";
 import React from "react";
 import Layout from "@/layouts";
 import NotFound from "@/pages/notFound";
@@ -26,12 +26,12 @@ const routers = [
 		element: <Layout />,
 		children: [
 			{
-				path: "",
+				path: "/",
 				element: <Home />,
 				loader: beforeRouter,
 			},
 			{
-				path: "userList",
+				path: "/userList",
 				element: <UserList />,
 				loader: beforeRouter,
 			},
@@ -43,7 +43,7 @@ const routers = [
 	},
 ];
 
-const router = createBrowserRouter(routers, {
+const router = createHashRouter(routers, {
 	future: {
 		v7_fetcherPersist: true,
 		v7_normalizeFormMethod: true,
