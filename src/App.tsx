@@ -1,5 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
+import { HappyProvider } from "@ant-design/happy-work-theme";
 import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
 import router from "./routers";
@@ -14,7 +15,9 @@ function App() {
 						// algorithm: theme.darkAlgorithm,
 					}
 				}>
-				<RouterProvider router={router} future={{ v7_startTransition: true }} />
+				<HappyProvider>
+					<RouterProvider router={router} future={{ v7_startTransition: true }} />
+				</HappyProvider>
 			</ConfigProvider>
 		</>
 	);

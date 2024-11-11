@@ -36,6 +36,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"@ant-design/happy-work-theme": "^1.0.0",
 		"ahooks": "^3.8.1",
 		"antd": "^5.21.6",
 		"axios": "^1.7.7",

@@ -3,7 +3,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined
 import { Button, Layout, Menu, theme } from "antd";
 import { useState, useEffect } from "react";
 import HeaderRight from "./HeaderRight";
-import reactSvg from "@/assets/react.svg";
+import reactSvg from "/react.svg";
 
 const { Header, Footer, Sider, Content } = Layout;
 function LayoutPage() {

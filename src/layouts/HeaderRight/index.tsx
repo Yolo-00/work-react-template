@@ -1,4 +1,4 @@
-import { Avatar, Dropdown } from "antd";
+import { Avatar, Dropdown, Modal } from "antd";
 import type { MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
 import avatarImg from "@/assets/image/avatar.png";
@@ -15,9 +15,17 @@ function HeaderRight() {
 	];
 
 	const loginOut = () => {
-		localStorage.removeItem("token");
-		navigate("/login", {
-			replace: true,
+		Modal.confirm({
+			centered: true,
+			destroyOnClose: true,
+			title: "提示",
+			content: "是否退出登录?",
+			onOk: () => {
+				localStorage.removeItem("token");
+				navigate("/login", {
+					replace: true,
+				});
+			},
 		});
 	};
 
