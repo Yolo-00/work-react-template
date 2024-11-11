@@ -8,14 +8,12 @@ const Login = React.lazy(() => import("@/pages/login/index"));
 const Home = React.lazy(() => import("@/pages/home/index"));
 const UserList = React.lazy(() => import("@/pages/userList"));
 
-let token = true;
-
 const routers = [
 	{
 		path: "/login",
 		element: <Login />,
 		loader: () => {
-			if (token) {
+			if (localStorage.getItem("token")) {
 				return redirect("/");
 			}
 			return null;
@@ -50,11 +48,11 @@ const router = createHashRouter(routers, {
 		v7_partialHydration: true,
 		v7_relativeSplatPath: true,
 		v7_skipActionErrorRevalidation: true,
-	}
+	},
 });
 
 function beforeRouter() {
-	if (!token) {
+	if (!localStorage.getItem("token")) {
 		return redirect("/login");
 	}
 	return null;

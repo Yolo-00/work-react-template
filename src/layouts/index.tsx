@@ -2,6 +2,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { useState, useEffect } from "react";
+import HeaderRight from "./HeaderRight";
 import reactSvg from "@/assets/react.svg";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -49,16 +50,19 @@ function LayoutPage() {
 				</Sider>
 				<Layout>
 					<Header style={{ padding: 0, background: colorBgContainer }}>
-						<Button
-							type="text"
-							icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-							onClick={() => setCollapsed(!collapsed)}
-							style={{
-								fontSize: "16px",
-								width: 64,
-								height: 64,
-							}}
-						/>
+						<div className="flex justify-between">
+							<Button
+								type="text"
+								icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+								onClick={() => setCollapsed(!collapsed)}
+								style={{
+									fontSize: "16px",
+									width: 64,
+									height: 64,
+								}}
+							/>
+							<HeaderRight />
+						</div>
 					</Header>
 					<Content
 						style={{
