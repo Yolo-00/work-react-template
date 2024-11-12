@@ -6,6 +6,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/Yolo-00/work-template-react?style=flat)
 
 [Vue版本](https://github.com/Yolo-00/work-template)
+[预览地址](https://yolo-00.github.io/work-template-react)
 
 </div>
 

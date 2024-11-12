@@ -6,7 +6,7 @@ import { useLocalStorageState } from "ahooks";
 
 function Login() {
 	const navigate = useNavigate();
-	const [token, setToken] = useLocalStorageState("token");
+	const [_, setToken] = useLocalStorageState("token");
 	const title = import.meta.env.VITE_APP_TITLE;
 	const formData = {
 		account: "admin",
