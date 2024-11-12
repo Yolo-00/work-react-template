@@ -30,8 +30,8 @@ function HeaderRight() {
 	};
 
 	return (
-		<div className="pr-5">
-			<Dropdown menu={{ items }} placement="bottomRight" arrow={{ pointAtCenter: true }}>
+		<div className="pr-8">
+			<Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
 				<Avatar size={45} src={avatarImg} shape="square" />
 			</Dropdown>
 		</div>
