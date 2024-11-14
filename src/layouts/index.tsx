@@ -1,21 +1,13 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Watermark } from "antd";
-import { useState, useEffect, useMemo, type ReactNode, useCallback } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import HeaderRight from "./headerRight";
 import reactSvg from "/react.svg";
 import { routers } from "@/routers";
-import type { RouteObject } from "react-router-dom";
+import { CustomRouteObject, changeOpenKeys } from "./index";
 
 const { Header, Footer, Sider, Content } = Layout;
-
-// 使用交叉类型创建带 meta 的自定义路由类型
-type CustomRouteObject = RouteObject & {
-	meta?: {
-		title: string;
-		icon: ReactNode;
-	};
-};
 interface CustomMenuItem {
 	key: string;
 	label: string;
@@ -27,42 +19,54 @@ function LayoutPage() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [collapsed, setCollapsed] = useState(false);
+	const [openKeys, setOpenKeys] = useState<string[]>([]);
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();
 	// 处理菜单列表
-	const changeMenuList = useCallback((list: CustomRouteObject[]): CustomMenuItem[] => {
+	const changeMenuList = (list: CustomRouteObject[] = routers): CustomMenuItem[] => {
 		return list.map(item => ({
 			key: item.path || "",
 			label: item.meta?.title || "",
 			icon: item.meta?.icon,
 			children: item?.children && changeMenuList(item.children),
 		}));
-	}, []);
-	const menuList = useMemo(() => {
-		return changeMenuList(routers);
-	}, [changeMenuList]);
+	};
+	// 处理菜单点击事件
 	const handleMenu = (e: any) => {
 		navigate(e.key);
 	};
+	// 设置当前展开的 subMenu
+	const onOpenChange = (openKeys: string[]) => {
+		if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
+		const latestOpenKey = openKeys[openKeys.length - 1];
+		if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
+		setOpenKeys([latestOpenKey]);
+	};
 	useEffect(() => {
 		console.log("layout page");
-	}, []);
+		if (!collapsed) {
+			setOpenKeys(changeOpenKeys(location.pathname, routers));
+		}
+	}, [collapsed, location.pathname]);
 	return (
 		<>
 			<Watermark content="Yolo">
 				<Layout className="h-[100vh]">
 					<Sider className="overflow-auto" trigger={null} collapsible collapsed={collapsed}>
 						<div>
-							<img className="w-10 h-10 mx-auto my-2" src={reactSvg} alt="" />
+							<img className="w-10 h-10 mx-auto my-2 select-none" src={reactSvg} alt="" />
 						</div>
 						<Menu
+							className="select-none"
 							triggerSubMenuAction="click"
 							theme="dark"
 							mode="inline"
-							defaultSelectedKeys={[location.pathname]}
-							items={menuList}
+							openKeys={openKeys}
+							selectedKeys={[location.pathname]}
+							items={changeMenuList()}
 							onClick={handleMenu}
+							onOpenChange={onOpenChange}
 						/>
 					</Sider>
 					<Layout>

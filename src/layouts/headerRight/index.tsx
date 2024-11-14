@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import avatarImg from "@/assets/image/avatar.png";
 function HeaderRight() {
 	const navigate = useNavigate();
+
 	const items: MenuProps["items"] = [
 		{
 			key: "1",
@@ -32,7 +33,7 @@ function HeaderRight() {
 	return (
 		<div className="pr-8">
 			<Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
-				<Avatar size={45} src={avatarImg} shape="square" />
+				<Avatar className="select-none" size={45} src={avatarImg} shape="square" />
 			</Dropdown>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Select, Space, Table } from "antd";
 import dayjs from "dayjs";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import SaveUser from "./components/saveUser";
 
 const dataSource = [
 	{
@@ -13,7 +14,7 @@ const dataSource = [
 	},
 	{
 		key: "2",
-		name: "胡彦祖",
+		name: "胡彦祖1",
 		age: 42,
 		address: "西湖区湖底公园1号",
 		sex: 1,
@@ -21,7 +22,7 @@ const dataSource = [
 	},
 	{
 		key: "3",
-		name: "胡彦祖",
+		name: "胡彦祖2",
 		age: 42,
 		address: "西湖区湖底公园1号",
 		sex: 1,
@@ -29,7 +30,7 @@ const dataSource = [
 	},
 	{
 		key: "4",
-		name: "胡彦祖",
+		name: "胡彦祖3",
 		age: 42,
 		address: "西湖区湖底公园1号",
 		sex: 1,
@@ -37,7 +38,7 @@ const dataSource = [
 	},
 	{
 		key: "5",
-		name: "胡彦祖",
+		name: "胡彦祖4",
 		age: 42,
 		address: "西湖区湖底公园1号",
 		sex: 1,
@@ -55,6 +56,7 @@ const columns = [
 		title: "年龄",
 		dataIndex: "age",
 		key: "age",
+		width: 80,
 		sorter: (a: { age: number }, b: { age: number }) => a.age - b.age,
 	},
 	{
@@ -82,10 +84,12 @@ function UserList() {
 	const [tableList, setTableList] = useState([...dataSource]);
 	const [queryData, setQueryData] = useState({
 		current: 1,
-		pageSize: 10,
-		total: 100,
+		pageSize: 5,
+		total: tableList.length,
 	});
+	const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 	const [loading, setLoading] = useState(true);
+	const saveUserRef = useRef<any>(null);
 	// 查询表单
 	const handleQuery = useCallback(() => {
 		console.log(form.getFieldsValue());
@@ -113,18 +117,74 @@ function UserList() {
 				const newList = [...tableList];
 				newList.splice(index, 1);
 				setTableList(newList);
+				setQueryData({
+					...queryData,
+					total: queryData.total - 1,
+				});
 			},
 		});
 	};
 
+	// 批量删除
+	const handleBatchDelete = () => {
+		if (selectedRowKeys.length === 0) {
+			Modal.warning({
+				centered: true,
+				destroyOnClose: true,
+				title: "提示",
+				content: "请选择数据",
+			});
+			return;
+		}
+		Modal.confirm({
+			centered: true,
+			destroyOnClose: true,
+			title: "提示",
+			content: "是否确认删除?",
+			onOk: () => {
+				setTableList(tableList.filter(item => !selectedRowKeys.includes(item.key)));
+				setQueryData({
+					...queryData,
+					total: queryData.total - selectedRowKeys.length,
+				});
+			},
+		});
+	};
+
+	// 创建表格数据
+	const handleAdd = () => {
+		saveUserRef.current?.showModal();
+	};
+
 	// 编辑表格数据
 	const handleUpdate = (record: any, index: number) => {
-		console.log(record, index);
+		saveUserRef.current?.showModal(record, index);
+	};
+
+	const getSaveData = (data: any, index: undefined | number) => {
+		if (index !== undefined) {
+			const newList = [...tableList];
+			newList[index] = { ...data, createTime: newList[index].createTime, key: newList[index].key };
+			setTableList(newList);
+		} else {
+			setTableList([
+				{
+					...data,
+					createTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+					key: tableList.length > 0 ? tableList[tableList.length - 1].key + 1 : 1,
+				},
+				...tableList,
+			]);
+			setQueryData({
+				...queryData,
+				total: queryData.total + 1,
+			});
+		}
 	};
 
 	// 获取选中数据
-	const getSelectChange = (selectedRowKeys: any, selectedRows: any) => {
-		console.log(selectedRowKeys, selectedRows, "获取选中数据");
+	const getSelectChange = (selectedRowKeys: any) => {
+		setSelectedRowKeys(selectedRowKeys);
 	};
 
 	useEffect(() => {
@@ -182,13 +242,23 @@ function UserList() {
 						</Space>
 					</Form.Item>
 				</Form>
+				<Space>
+					<Button type="primary" onClick={handleAdd}>
+						创建
+					</Button>
+					<Button type="primary" danger onClick={handleBatchDelete}>
+						批量删除
+					</Button>
+				</Space>
 				<Table
 					dataSource={tableList}
 					bordered
 					sticky
 					loading={loading}
+					tableLayout="auto"
 					pagination={{
 						showQuickJumper: true,
+						showTotal: total => `共 ${total} 条`,
 						...queryData,
 					}}
 					rowSelection={{
@@ -196,6 +266,11 @@ function UserList() {
 						onChange: getSelectChange,
 					}}
 					onChange={getTableData}>
+					<Table.Column
+						title="索引"
+						dataIndex="index"
+						key="index"
+						render={(_: any, __: any, index: number) => index + 1}></Table.Column>
 					{columns.map(item => {
 						return <Table.Column {...item} key={item.key} />;
 					})}
@@ -214,6 +289,7 @@ function UserList() {
 							</Space>
 						)}></Table.Column>
 				</Table>
+				<SaveUser ref={saveUserRef} onSaveData={getSaveData} />
 			</Space>
 		</>
 	);
