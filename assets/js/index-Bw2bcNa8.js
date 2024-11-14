@@ -1,1 +1,0 @@
-import{j as e,B as r,S as s}from"./vendor-DVulRf9g.js";function i(){return e.jsxs(e.Fragment,{children:[e.jsx("h1",{children:"Home"}),e.jsx(r,{type:"primary",children:"Happy Work"}),e.jsx(s,{}),e.jsx("div",{style:{height:"100vh"}}),e.jsx("p",{children:"这是首页"})]})}export{i as default};
