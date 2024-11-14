@@ -5,7 +5,7 @@ import { useState, useEffect, type ReactNode } from "react";
 import HeaderRight from "./headerRight";
 import reactSvg from "/react.svg";
 import { routers } from "@/routers";
-import { CustomRouteObject, changeOpenKeys } from "./index";
+import { CustomRouteObject, changeOpenKeys } from "./utils/index";
 
 const { Header, Footer, Sider, Content } = Layout;
 interface CustomMenuItem {
