@@ -81,7 +81,7 @@ const columns = [
 
 function UserList() {
 	const [form] = Form.useForm();
-	const [tableList, setTableList] = useState([...dataSource]);
+	const [tableList, setTableList] = useState<typeof dataSource>([]);
 	const [queryData, setQueryData] = useState({
 		current: 1,
 		pageSize: 5,
@@ -93,6 +93,7 @@ function UserList() {
 	// 查询表单
 	const handleQuery = useCallback(() => {
 		console.log(form.getFieldsValue());
+		setLoading(true);
 	}, [form]);
 	// 重置表单
 	const handleReset = useCallback(() => {
@@ -190,6 +191,7 @@ function UserList() {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
+			setTableList([...dataSource]);
 		}, 1000);
 	}, [loading]);
 	return (

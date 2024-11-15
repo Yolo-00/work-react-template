@@ -1,10 +1,10 @@
 import { Avatar, Dropdown, Modal } from "antd";
 import type { MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
+import { setLoginOut } from "@/stores";
 import avatarImg from "@/assets/image/avatar.png";
 function HeaderRight() {
 	const navigate = useNavigate();
-
 	const items: MenuProps["items"] = [
 		{
 			key: "1",
@@ -14,7 +14,6 @@ function HeaderRight() {
 			},
 		},
 	];
-
 	const loginOut = () => {
 		Modal.confirm({
 			centered: true,
@@ -22,7 +21,7 @@ function HeaderRight() {
 			title: "提示",
 			content: "是否退出登录?",
 			onOk: () => {
-				localStorage.removeItem("token");
+				setLoginOut();
 				navigate("/login", {
 					replace: true,
 				});

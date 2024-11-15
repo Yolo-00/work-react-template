@@ -15,6 +15,16 @@ interface CustomMenuItem {
 	children?: CustomMenuItem[];
 }
 
+// 处理菜单列表
+const changeMenuList = (list: CustomRouteObject[] = routers): CustomMenuItem[] => {
+	return list.map(item => ({
+		key: item.path || "",
+		label: item.meta?.title || "",
+		icon: item.meta?.icon,
+		children: item?.children && changeMenuList(item.children),
+	}));
+};
+
 function LayoutPage() {
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -23,15 +33,7 @@ function LayoutPage() {
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();
-	// 处理菜单列表
-	const changeMenuList = (list: CustomRouteObject[] = routers): CustomMenuItem[] => {
-		return list.map(item => ({
-			key: item.path || "",
-			label: item.meta?.title || "",
-			icon: item.meta?.icon,
-			children: item?.children && changeMenuList(item.children),
-		}));
-	};
+
 	// 处理菜单点击事件
 	const handleMenu = (e: any) => {
 		navigate(e.key);
@@ -64,7 +66,7 @@ function LayoutPage() {
 							mode="inline"
 							openKeys={openKeys}
 							selectedKeys={[location.pathname]}
-							items={changeMenuList()}
+							items={changeMenuList(routers)}
 							onClick={handleMenu}
 							onOpenChange={onOpenChange}
 						/>
@@ -90,7 +92,7 @@ function LayoutPage() {
 							}}>
 							<Outlet />
 						</Content>
-						<Footer className="w-full flex justify-center items-center bg-white p-1">
+						<Footer className="w-full flex justify-center items-center bg-white dark:bg-black p-1">
 							<a href="https://github.com/Yolo-00/work-template-react" target="_blank" className="text-lg font-semibold">
 								work-template-react
 							</a>

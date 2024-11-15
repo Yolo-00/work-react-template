@@ -2,11 +2,11 @@ import "./index.scss";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, notification } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorageState } from "ahooks";
+import useAppStore from "@/stores/index";
 
 function Login() {
 	const navigate = useNavigate();
-	const [_, setToken] = useLocalStorageState("token");
+	const { setToken, setUserInfo } = useAppStore();
 	const title = import.meta.env.VITE_APP_TITLE;
 	const formData = {
 		account: "admin",
@@ -14,7 +14,11 @@ function Login() {
 	};
 	const onFinish = (values: any) => {
 		console.log("Success:", values);
-		setToken(new Date().getTime());
+		setToken(new Date().getTime().toString());
+		setUserInfo({
+			id: 1,
+			name: "admin",
+		});
 		notification.success({
 			message: "登录成功",
 			duration: 2,
