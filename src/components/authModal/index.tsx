@@ -12,7 +12,7 @@ function AuthModule() {
 				onOk: () => {
 					setIsReLogin(false);
 					loginOut();
-					window.location.href = "/";
+					window.location.href = location.origin + location.pathname;
 				},
 			});
 		}
