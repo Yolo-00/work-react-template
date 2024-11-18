@@ -7,6 +7,7 @@ export type CustomRouteObject = RouteObject & {
         icon: ReactNode;
     };
 };
+// 处理当前展开的菜单
 export function changeOpenKeys(path: string, router: CustomRouteObject[], list: string[] = []) {
     router.forEach(item => {
         if (item.path === path) {

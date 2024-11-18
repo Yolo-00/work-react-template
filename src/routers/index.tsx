@@ -15,8 +15,9 @@ export const routers = [
 		path: "/",
 		element: <Home />,
 		meta: {
-			title: "首页",
+			title: "menu.home",
 			icon: <HomeOutlined />,
+			desc: "首页",
 		},
 		loader: beforeRouter,
 	},
@@ -24,16 +25,18 @@ export const routers = [
 		path: "/userList",
 		element: <UserList />,
 		meta: {
-			title: "用户列表",
+			title: "menu.userList",
 			icon: <UnorderedListOutlined />,
+			desc: "用户列表",
 		},
 		loader: beforeRouter,
 	},
 	{
 		path: "/menu",
 		meta: {
-			title: "菜单",
+			title: "menu.menu",
 			icon: <MenuOutlined />,
+			desc: "多级菜单",
 		},
 		loader: beforeRouter,
 		children: [
@@ -41,20 +44,20 @@ export const routers = [
 				path: "/menu/menu-1",
 				element: <Menu1 />,
 				meta: {
-					title: "菜单-1",
+					title: "menu.menu-1",
 				},
 			},
 			{
 				path: "/menu/menu-2",
 				meta: {
-					title: "菜单-2",
+					title: "menu.menu-2",
 				},
 				children: [
 					{
 						path: "/menu/menu-2/menu-2-1",
 						element: <Menu2_1 />,
 						meta: {
-							title: "菜单-2-1",
+							title: "menu.menu-2-1",
 						},
 					},
 				],

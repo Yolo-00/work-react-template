@@ -5,6 +5,7 @@ import { useState, useEffect, type ReactNode } from "react";
 import HeaderRight from "./headerRight";
 import reactSvg from "/react.svg";
 import { routers } from "@/routers";
+import { useTranslation } from "react-i18next";
 import { CustomRouteObject, changeOpenKeys } from "./utils/index";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -15,24 +16,25 @@ interface CustomMenuItem {
 	children?: CustomMenuItem[];
 }
 
-// 处理菜单列表
-const changeMenuList = (list: CustomRouteObject[] = routers): CustomMenuItem[] => {
-	return list.map(item => ({
-		key: item.path || "",
-		label: item.meta?.title || "",
-		icon: item.meta?.icon,
-		children: item?.children && changeMenuList(item.children),
-	}));
-};
-
 function LayoutPage() {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { t } = useTranslation();
 	const [collapsed, setCollapsed] = useState(false);
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();
+
+	// 处理菜单列表
+	const changeMenuList = (list: CustomRouteObject[] = routers): CustomMenuItem[] => {
+		return list.map(item => ({
+			key: item.path || "",
+			label: item.meta?.title ? t(item.meta?.title) : "",
+			icon: item.meta?.icon,
+			children: item?.children && changeMenuList(item.children),
+		}));
+	};
 
 	// 处理菜单点击事件
 	const handleMenu = (e: any) => {
@@ -92,7 +94,7 @@ function LayoutPage() {
 							}}>
 							<Outlet />
 						</Content>
-						<Footer className="w-full flex justify-center items-center bg-white dark:bg-black p-1">
+						<Footer className="w-full flex justify-center items-center p-1" style={{ background: colorBgContainer }}>
 							<a href="https://github.com/Yolo-00/work-template-react" target="_blank" className="text-lg font-semibold">
 								work-template-react
 							</a>

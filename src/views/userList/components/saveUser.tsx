@@ -5,7 +5,7 @@ interface PropsType {
 	onSaveData: (data: any, index: number | undefined) => void;
 }
 
-function SaveUser(props: PropsType, ref: any) {
+function SaveUser({ onSaveData }: PropsType, ref: any) {
 	const [show, setShow] = useState(false);
 	const [index, setIndex] = useState<undefined | number>(undefined);
 	const [form] = Form.useForm();
@@ -24,7 +24,7 @@ function SaveUser(props: PropsType, ref: any) {
 	const handleOk = () => {
 		form.validateFields().then(() => {
 			setShow(false);
-			props.onSaveData(form.getFieldsValue(), index);
+			onSaveData(form.getFieldsValue(), index);
 		});
 	};
 	return (

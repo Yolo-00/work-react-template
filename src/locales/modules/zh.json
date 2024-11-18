@@ -1,0 +1,12 @@
+{
+    "layout.header.locales.zh": "简体中文",
+    "layout.header.locales.en": "English",
+    "layout.header.info.out": "退出登录",
+    "menu.home": "首页",
+    "menu.userList": "用户列表",
+    "menu.menu": "多级菜单",
+    "menu.menu-1": "菜单-1",
+    "menu.menu-2": "菜单-2",
+    "menu.menu-2-1": "菜单-2-1",
+    "home": "首页"
+}

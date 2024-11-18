@@ -197,7 +197,7 @@ function UserList() {
 	return (
 		<>
 			<Space direction="vertical" size="large" className="w-full">
-				<Form form={form} name="query" layout="inline">
+				<Form form={form} name="query" layout="inline" style={{ rowGap: "10px" }}>
 					<Form.Item label="姓名" name="name">
 						<Input className="w-48" placeholder="请输入姓名" allowClear />
 					</Form.Item>
