@@ -12,16 +12,16 @@
 
 ### 介绍 📖
 
-`work-template-react` 一款基于 `React18.3`、`TypeScript`、`Vite5`、`react-router`、`zustand`、`Ant Design 5.0`、`tailwindcss` 开源的模板框架，使用目前最新技术栈开发。在一定程度上节省您的开发效率。另外本项目还封装了一些常用组件、Hooks、指令、路由、国际化等功能。
+`work-template-react` 一款基于 `React18.3`、`TypeScript`、`Vite5`、`react-router`、`zustand`、`Ant Design 5.0`、`tailwindcss` 开源的模板框架，使用目前最新技术栈开发。在一定程度上节省您的开发效率
 
 ### 项目功能 🔨
 
 - 使用 React18.3 + TypeScript + tailwindcss 开发页面
 - 采用 Vite5 作为项目开发、打包工具（生成包预览、跨域代理、代码兼容……）
 - 使用 TypeScript 对 Axios 整个二次封装 （请求拦截、常用请求封装……）
-- 使用 react-router 进行路由权限拦截、路由懒加载、动态路由（todo：动态路由）
+- 使用 react-router 进行路由权限拦截、路由懒加载
 - 使用 zustand 进行状态管理、状态持久化等等
-- 支持 Ant Design 组件和页面的 i18n 国际化以及黑暗模式（todo：黑暗模式）
+- 支持 Ant Design 组件和页面的 i18n 国际化以及黑暗模式
 - 使用 Prettier 统一格式化代码，集成 Eslint 代码校验规范
 - 打包优化（配置 Gzip 打包、分包策略、CDN 引入……）
 
