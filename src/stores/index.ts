@@ -11,6 +11,7 @@ type State = {
     userInfo: UserInfo,
     isReLogin: boolean;
     language: 'zh' | 'en';
+    systemTheme: "light" | "dark"
 }
 
 type Action = {
@@ -18,6 +19,7 @@ type Action = {
     setUserInfo: (userInfo: UserInfo) => void;
     loginOut: () => void;
     setLanguage: (language: 'zh' | 'en') => void;
+    setSystemTheme: (theme: "light" | "dark") => void;
 }
 
 const useAppStore = create<State & Action>()(devtools(
@@ -26,10 +28,12 @@ const useAppStore = create<State & Action>()(devtools(
         userInfo: {},   // 用户信息
         isReLogin: false,   // 是否重新登录
         language: 'zh',  // 语言
+        systemTheme: 'light',   // 主题
         setUserInfo: (userInfo: UserInfo) => set({ userInfo }),   // 设置用户信息
         setToken: (token: string) => set({ token }),      // 设置登录凭证
         loginOut: () => set({ token: "", userInfo: {} }),     // 退出登录
         setLanguage: (language: 'zh' | 'en') => set({ language }),    // 设置语言
+        setSystemTheme: (systemTheme: "light" | "dark") => set({ systemTheme })
     }), {
         name: "appStore"
     })

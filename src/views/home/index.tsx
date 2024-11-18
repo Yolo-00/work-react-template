@@ -5,7 +5,7 @@ function Home() {
 	const { t } = useTranslation();
 	return (
 		<>
-			<h1>{t("home")}</h1>
+			<h1 className="dark:text-red-500">{t("home")}</h1>
 			<Button type="primary">Home Button</Button>
 			<Button onClick={() => setIsReLogin(true)}>模仿请求token失效</Button>
 			<div style={{ height: "100vh" }}></div>

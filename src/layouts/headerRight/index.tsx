@@ -1,22 +1,29 @@
 import { Avatar, Dropdown, Modal, Space } from "antd";
 import type { MenuProps } from "antd";
-import { TranslationOutlined } from "@ant-design/icons";
+import { SunOutlined, TranslationOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { setLoginOut } from "@/stores";
 import avatarImg from "@/assets/image/avatar.png";
 import useAppStore from "@/stores";
 import { useTranslation } from "react-i18next";
+
 function HeaderRight() {
 	const navigate = useNavigate();
-	const { language, setLanguage } = useAppStore();
+	const { language, setLanguage, systemTheme, setSystemTheme } = useAppStore();
 	const { t, i18n } = useTranslation();
-
-	const infoItems: MenuProps["items"] = [
+	const themeItems: MenuProps["items"] = [
 		{
-			key: "1",
-			label: <div>{t("layout.header.info.out")}</div>,
+			key: "light",
+			label: <div>{t("layout.header.locales.theme.light")}</div>,
 			onClick: () => {
-				loginOut();
+				changeTheme("light");
+			},
+		},
+		{
+			key: "dark",
+			label: <div>{t("layout.header.locales.theme.dark")}</div>,
+			onClick: () => {
+				changeTheme("dark");
 			},
 		},
 	];
@@ -36,6 +43,18 @@ function HeaderRight() {
 			},
 		},
 	];
+	const infoItems: MenuProps["items"] = [
+		{
+			key: "1",
+			label: <div>{t("layout.header.info.out")}</div>,
+			onClick: () => {
+				loginOut();
+			},
+		},
+	];
+	const changeTheme = (theme: "light" | "dark") => {
+		setSystemTheme(theme);
+	};
 	const changeLanguage = (language: "zh" | "en") => {
 		setLanguage(language);
 		i18n.changeLanguage(language);
@@ -54,10 +73,12 @@ function HeaderRight() {
 			},
 		});
 	};
-
 	return (
 		<div className="pr-8">
 			<Space align="center" size="large">
+				<Dropdown menu={{ items: themeItems, selectedKeys: [systemTheme] }} placement="bottom" arrow={{ pointAtCenter: true }}>
+					<SunOutlined className="text-2xl cursor-pointer block py-2 px-3" />
+				</Dropdown>
 				<Dropdown menu={{ items: languageItems, selectedKeys: [language] }} placement="bottom" arrow={{ pointAtCenter: true }}>
 					<TranslationOutlined className="text-2xl cursor-pointer block py-2 px-3" />
 				</Dropdown>

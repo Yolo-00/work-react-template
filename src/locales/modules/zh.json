@@ -1,4 +1,6 @@
 {
+    "layout.header.locales.theme.light": "明亮",
+    "layout.header.locales.theme.dark": "黑暗",
     "layout.header.locales.zh": "简体中文",
     "layout.header.locales.en": "English",
     "layout.header.info.out": "退出登录",

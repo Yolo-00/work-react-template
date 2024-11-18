@@ -33,8 +33,8 @@ function Login() {
 	};
 	return (
 		<div className="login-bg h-[100vh] flex justify-center items-center">
-			<div className="p-5 bg-white rounded-lg w-80 pb-0">
-				<div className="text-center font-semibold mb-4 text-xl">{title}</div>
+			<div className="p-5 bg-white dark:bg-black rounded-lg w-80 pb-0">
+				<div className="text-center font-semibold mb-4 text-xl dark:text-white">{title}</div>
 				<Form scrollToFirstError name="login" initialValues={formData} onFinish={onFinish}>
 					<Form.Item name="account" rules={[{ required: true, message: "请输入账号" }]}>
 						<Input prefix={<UserOutlined />} placeholder="请输入账号" />
