@@ -12,7 +12,7 @@
 
 ### 介绍 📖
 
-`work-template-react` 一款基于 `React18.3`、`TypeScript`、`Vite5`、`react-router`、`zustand`、`Ant Design 5.0`、`tailwindcss` 开源的模板框架，使用目前最新技术栈开发。在一定程度上节省您的开发效率
+`work-template-react` 一款基于 `React18.3`、`TypeScript`、`Vite5`、`react-router`、`zustand`、`Ant Design 5.0`、`tailwindcss` 开源的模板框架，使用目前最新技术栈开发。在一定程度上节省您的开发效率。
 
 ### 项目功能 🔨
 

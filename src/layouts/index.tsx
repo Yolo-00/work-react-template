@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Watermark } from "antd";
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode, useCallback } from "react";
 import HeaderRight from "./headerRight";
 import reactSvg from "/react.svg";
 import { routers } from "@/routers";
@@ -41,12 +41,15 @@ function LayoutPage() {
 		navigate(e.key);
 	};
 	// 设置当前展开的 subMenu
-	const onOpenChange = (openKeys: string[]) => {
-		if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
-		const latestOpenKey = openKeys[openKeys.length - 1];
-		if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
-		setOpenKeys([latestOpenKey]);
-	};
+	const onOpenChange = useCallback(
+		(openKeys: string[]) => {
+			if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
+			const latestOpenKey = openKeys[openKeys.length - 1];
+			if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
+			setOpenKeys([latestOpenKey]);
+		},
+		[setOpenKeys],
+	);
 	useEffect(() => {
 		console.log("layout page");
 		if (!collapsed) {

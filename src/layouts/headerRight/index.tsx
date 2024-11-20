@@ -6,6 +6,7 @@ import { setLoginOut } from "@/stores";
 import avatarImg from "@/assets/image/avatar.png";
 import useAppStore from "@/stores";
 import { useTranslation } from "react-i18next";
+import { useCallback } from "react";
 
 function HeaderRight() {
 	const navigate = useNavigate();
@@ -52,14 +53,20 @@ function HeaderRight() {
 			},
 		},
 	];
-	const changeTheme = (theme: "light" | "dark") => {
-		setSystemTheme(theme);
-	};
-	const changeLanguage = (language: "zh" | "en") => {
-		setLanguage(language);
-		i18n.changeLanguage(language);
-	};
-	const loginOut = () => {
+	const changeTheme = useCallback(
+		(theme: "light" | "dark") => {
+			setSystemTheme(theme);
+		},
+		[setSystemTheme],
+	);
+	const changeLanguage = useCallback(
+		(language: "zh" | "en") => {
+			setLanguage(language);
+			i18n.changeLanguage(language);
+		},
+		[setLanguage, i18n],
+	);
+	const loginOut = useCallback(() => {
 		Modal.confirm({
 			centered: true,
 			destroyOnClose: true,
@@ -72,7 +79,7 @@ function HeaderRight() {
 				});
 			},
 		});
-	};
+	}, [navigate]);
 	return (
 		<div className="pr-8">
 			<Space align="center" size="large">
