@@ -1,5 +1,5 @@
 import { Form, Input, InputNumber, Modal, Select } from "antd";
-import { useState, forwardRef, useImperativeHandle } from "react";
+import { useState, forwardRef, useImperativeHandle, useCallback } from "react";
 
 interface PropsType {
 	onSaveData: (data: any, index: number | undefined) => void;
@@ -9,24 +9,28 @@ function SaveUser({ onSaveData }: PropsType, ref: any) {
 	const [show, setShow] = useState(false);
 	const [index, setIndex] = useState<undefined | number>(undefined);
 	const [form] = Form.useForm();
-	useImperativeHandle(ref, () => ({
-		showModal: (data?: any, editIndex?: undefined | number) => {
-			setShow(true);
-			setIndex(editIndex);
-			form.resetFields();
-			// 创建
-			if (data) {
-				// 编辑
-				form.setFieldsValue(data);
-			}
-		},
-	}));
-	const handleOk = () => {
+	useImperativeHandle(
+		ref,
+		() => ({
+			showModal: (data?: any, editIndex?: undefined | number) => {
+				setShow(true);
+				setIndex(editIndex);
+				form.resetFields();
+				// 创建
+				if (data) {
+					// 编辑
+					form.setFieldsValue(data);
+				}
+			},
+		}),
+		[form],
+	);
+	const handleOk = useCallback(() => {
 		form.validateFields().then(() => {
 			setShow(false);
 			onSaveData(form.getFieldsValue(), index);
 		});
-	};
+	}, [form, index, onSaveData]);
 	return (
 		<>
 			<Modal title={index !== undefined ? "编辑" : "新增"} open={show} onOk={handleOk} onCancel={() => setShow(false)}>

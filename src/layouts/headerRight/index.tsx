@@ -53,19 +53,13 @@ function HeaderRight() {
 			},
 		},
 	];
-	const changeTheme = useCallback(
-		(theme: "light" | "dark") => {
-			setSystemTheme(theme);
-		},
-		[setSystemTheme],
-	);
-	const changeLanguage = useCallback(
-		(language: "zh" | "en") => {
-			setLanguage(language);
-			i18n.changeLanguage(language);
-		},
-		[setLanguage, i18n],
-	);
+	const changeTheme = (theme: "light" | "dark") => {
+		setSystemTheme(theme);
+	};
+	const changeLanguage = (language: "zh" | "en") => {
+		setLanguage(language);
+		i18n.changeLanguage(language);
+	};
 	const loginOut = useCallback(() => {
 		Modal.confirm({
 			centered: true,

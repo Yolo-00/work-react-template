@@ -91,14 +91,14 @@ function UserList() {
 	const [loading, setLoading] = useState(true);
 	const saveUserRef = useRef<any>(null);
 	// 查询表单
-	const handleQuery = useCallback(() => {
+	const handleQuery = () => {
 		console.log(form.getFieldsValue());
 		setLoading(true);
-	}, [form]);
+	};
 	// 重置表单
-	const handleReset = useCallback(() => {
+	const handleReset = () => {
 		form.resetFields();
-	}, [form]);
+	};
 	// 获取表格数据
 	const getTableData = (pagination: any) => {
 		setQueryData({
@@ -108,26 +108,29 @@ function UserList() {
 		});
 	};
 	// 删除表格数据
-	const handleDelete = (index: number) => {
-		Modal.confirm({
-			centered: true,
-			destroyOnClose: true,
-			title: "提示",
-			content: "是否确认删除?",
-			onOk: () => {
-				const newList = [...tableList];
-				newList.splice(index, 1);
-				setTableList(newList);
-				setQueryData({
-					...queryData,
-					total: queryData.total - 1,
-				});
-			},
-		});
-	};
+	const handleDelete = useCallback(
+		(index: number) => {
+			Modal.confirm({
+				centered: true,
+				destroyOnClose: true,
+				title: "提示",
+				content: "是否确认删除?",
+				onOk: () => {
+					const newList = [...tableList];
+					newList.splice(index, 1);
+					setTableList(newList);
+					setQueryData({
+						...queryData,
+						total: queryData.total - 1,
+					});
+				},
+			});
+		},
+		[tableList, queryData],
+	);
 
 	// 批量删除
-	const handleBatchDelete = () => {
+	const handleBatchDelete = useCallback(() => {
 		if (selectedRowKeys.length === 0) {
 			Modal.warning({
 				centered: true,
@@ -150,7 +153,7 @@ function UserList() {
 				});
 			},
 		});
-	};
+	}, [tableList, selectedRowKeys, queryData]);
 
 	// 创建表格数据
 	const handleAdd = () => {
@@ -162,26 +165,29 @@ function UserList() {
 		saveUserRef.current?.showModal(record, index);
 	};
 
-	const getSaveData = (data: any, index: undefined | number) => {
-		if (index !== undefined) {
-			const newList = [...tableList];
-			newList[index] = { ...data, createTime: newList[index].createTime, key: newList[index].key };
-			setTableList(newList);
-		} else {
-			setTableList([
-				{
-					...data,
-					createTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-					key: tableList.length > 0 ? tableList[tableList.length - 1].key + 1 : 1,
-				},
-				...tableList,
-			]);
-			setQueryData({
-				...queryData,
-				total: queryData.total + 1,
-			});
-		}
-	};
+	const getSaveData = useCallback(
+		(data: any, index: undefined | number) => {
+			if (index !== undefined) {
+				const newList = [...tableList];
+				newList[index] = { ...data, createTime: newList[index].createTime, key: newList[index].key };
+				setTableList(newList);
+			} else {
+				setTableList([
+					{
+						...data,
+						createTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+						key: tableList.length > 0 ? tableList[tableList.length - 1].key + 1 : 1,
+					},
+					...tableList,
+				]);
+				setQueryData({
+					...queryData,
+					total: queryData.total + 1,
+				});
+			}
+		},
+		[tableList, queryData],
+	);
 
 	// 获取选中数据
 	const getSelectChange = (selectedRowKeys: any) => {
