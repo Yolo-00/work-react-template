@@ -2,7 +2,6 @@ import React from "react";
 import NotFound from "@/views/notFound";
 import { HomeOutlined, MenuOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import type { CustomRouteObject } from "@/layouts/utils";
-import { redirect } from "react-router-dom";
 
 // 使用 React.lazy 动态导入页面组件
 const Login = React.lazy(() => import("@/views/login/index"));
