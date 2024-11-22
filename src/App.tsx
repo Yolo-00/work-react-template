@@ -1,13 +1,12 @@
-import { RouterProvider } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
 import { HappyProvider } from "@ant-design/happy-work-theme";
-import AuthModule from "@/components/authModal";
 import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
-import router from "@/routers";
 import "@/locales/index";
 import useAppStore from "@/stores";
 import { useEffect } from "react";
+import AppRouter from "@/routers";
 
 function App() {
 	const { language, systemTheme } = useAppStore();
@@ -26,8 +25,9 @@ function App() {
 					algorithm: systemTheme === "dark" ? theme.darkAlgorithm : undefined,
 				}}>
 				<HappyProvider>
-					<RouterProvider router={router} future={{ v7_startTransition: true }} />
-					<AuthModule />
+					<HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+						<AppRouter />
+					</HashRouter>
 				</HappyProvider>
 			</ConfigProvider>
 		</>

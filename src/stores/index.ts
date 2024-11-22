@@ -11,7 +11,12 @@ type State = {
     userInfo: UserInfo,
     isReLogin: boolean;
     language: 'zh' | 'en';
-    systemTheme: "light" | "dark"
+    systemTheme: "light" | "dark",
+    crumbsList: Array<{
+        title: string;
+        path: string;
+        url: string;
+    }>
 }
 
 type Action = {
@@ -20,6 +25,7 @@ type Action = {
     loginOut: () => void;
     setLanguage: (language: 'zh' | 'en') => void;
     setSystemTheme: (theme: "light" | "dark") => void;
+    setCrumbsList: (crumbsList: State['crumbsList']) => void;
 }
 
 const useAppStore = create<State & Action>()(devtools(
@@ -29,11 +35,13 @@ const useAppStore = create<State & Action>()(devtools(
         isReLogin: false,   // 是否重新登录
         language: 'zh',  // 语言
         systemTheme: 'light',   // 主题
+        crumbsList: [],    // 面包屑列表
         setUserInfo: (userInfo: UserInfo) => set({ userInfo }),   // 设置用户信息
         setToken: (token: string) => set({ token }),      // 设置登录凭证
         loginOut: () => set({ token: "", userInfo: {} }),     // 退出登录
         setLanguage: (language: 'zh' | 'en') => set({ language }),    // 设置语言
-        setSystemTheme: (systemTheme: "light" | "dark") => set({ systemTheme })
+        setSystemTheme: (systemTheme: "light" | "dark") => set({ systemTheme }),   // 设置主题
+        setCrumbsList: (crumbsList: State['crumbsList']) => set({ crumbsList }),   // 设置面包屑列表
     }), {
         name: "appStore"
     })

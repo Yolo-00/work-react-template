@@ -2,11 +2,12 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Watermark } from "antd";
 import { useState, useEffect, type ReactNode, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import HeaderRight from "./headerRight";
 import reactSvg from "/react.svg";
-import { routers } from "@/routers";
-import { useTranslation } from "react-i18next";
-import { CustomRouteObject, changeOpenKeys } from "./utils/index";
+import { routers } from "@/routers/modules/root";
+import { type CustomRouteObject, changeOpenKeys, changeClicks } from "./utils/index";
+import useAppStore from "@/stores";
 
 const { Header, Footer, Sider, Content } = Layout;
 interface CustomMenuItem {
@@ -22,6 +23,7 @@ function LayoutPage() {
 	const { t } = useTranslation();
 	const [collapsed, setCollapsed] = useState(false);
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
+	const { setCrumbsList } = useAppStore();
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();
@@ -39,6 +41,7 @@ function LayoutPage() {
 	// 处理菜单点击事件
 	const handleMenu = (e: any) => {
 		navigate(e.key);
+		setCrumbsList(changeClicks(e.key, routers));
 	};
 	// 设置当前展开的 subMenu
 	const onOpenChange = useCallback(
@@ -55,7 +58,8 @@ function LayoutPage() {
 		if (!collapsed) {
 			setOpenKeys(changeOpenKeys(location.pathname, routers));
 		}
-	}, [collapsed, location.pathname]);
+		setCrumbsList(changeClicks(location.pathname, routers));
+	}, [collapsed, location.pathname, setCrumbsList]);
 	return (
 		<>
 			<Watermark content="Yolo">
