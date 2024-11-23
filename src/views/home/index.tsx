@@ -3,6 +3,7 @@ import { setIsReLogin } from "@/stores";
 import { useTranslation } from "react-i18next";
 import { useSize } from "@/hooks";
 import { useRef } from "react";
+
 function Home() {
 	const { t } = useTranslation();
 	const domRef = useRef<any>(null);
